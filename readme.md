@@ -30,6 +30,7 @@ we are using opencv2 so to install it :
 
 ## Compile
 
+```
 cd darknet
 emacs -nw Makefile
     GPU=1
@@ -41,3 +42,4 @@ make
 
 cd ../classifier
 make run
+```
