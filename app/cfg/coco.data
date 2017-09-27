@@ -1,7 +1,0 @@
-classes= 80
-train  = /home/test.txt
-valid  = coco_testdev
-#valid = data/coco_val_5k.list
-names = data/coco.names
-backup = /home/backup/
-eval=coco

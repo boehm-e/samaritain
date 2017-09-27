@@ -1,5 +1,6 @@
 #MY RULES
 weights/*.weights
+classifier/yolo.weights
 
 # Prerequisites
 *.d
