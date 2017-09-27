@@ -30,20 +30,6 @@ we are using opencv2 so to install it :
 
 ## Compile
 
-You now have the required programs to run `samaritain`
-To compile our program, you first need to compile the darknet static library, to do so:
-- go to the `darknet` folder
-- edit the `Makefile`
-- set GPU, CUDNN and OPENCV to 1 (only OPENCV if you don't use CUDA)
-- run the Makefile
-- copy the darknet.a to app/lib/libdarknet.a
-- go to the app folder
-- run get_weights.sh script
-- run the Makefile
-- execute the program
-
-So now in command line :
-``` shell
 cd darknet
 emacs -nw Makefile
     GPU=1
@@ -52,11 +38,6 @@ emacs -nw Makefile
     DEBUG=0
 
 make
-cp darknet.a ../app/lib/libdarknet.a
-cd ../app
-cd weights
-./get_weights.sh
-cd ..
-make
-./samaritain detector demo cfg/coco.data cfg/yolo.cfg weights/yolo.weights
-```
+
+cd ../classifier
+make run
