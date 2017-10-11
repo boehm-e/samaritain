@@ -1,6 +1,7 @@
 #MY RULES
-weights/*.weights
 classifier/yolo.weights
+classifier/*.o
+classifier/data/yolo.weights
 
 # Prerequisites
 *.d

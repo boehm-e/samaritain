@@ -5,26 +5,35 @@ To do this we are using the darknet library.
 
 ## Prerequistes
 
-You have two choices to compile this program:
+```
+libpqxx
+postgresql
+CUDA
+nvcc
+opencv3
+```
 
-1. with CUDA
-  The program will run faster (16gb ram / gtx 960 2gb => 15fps)
+##### Install
+###### cuda (8.0) :
+- [Linux](https://doc.ubuntu-fr.org/cuda)<br>
+- [Windows](https://developer.nvidia.com/cuda-downloads)
 
-2. without CUDA
-  The program will run slower (16gb ram / gtx 960 2gb => < 1fps)
+###### opencv (3.2) :
+- clone the [github repo](https://github.com/opencv/opencv)
+- cmake
+- make
+- make install
 
-so we advise you to  install CUDA (we are using cuda 8.0)
-##### To install cuda :
-[Linux](https://doc.ubuntu-fr.org/cuda)
-[Windows](https://developer.nvidia.com/cuda-downloads)
+###### postgresql :
+- install postgresql
+- [create a db](https://www.cyberciti.biz/faq/howto-add-postgresql-user-account/)
+  - username = samaritain
+  - password = samaritain
+  - database = samaritain
 
-##### To install opencv2 :
-`In both cases (CUDA || !CUDA) you will need to install opencv`
-we are using opencv2 so to install it :
+###### libpqxx :
+  - install libpqxx-dev
 
-[Linux](https://doc.ubuntu-fr.org/opencv)
-[Mac](https://jjyap.wordpress.com/2014/05/24/installing-opencv-2-4-9-on-mac-osx-with-python-support/)
-[Windows](http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
 
 ---
 
@@ -32,12 +41,6 @@ we are using opencv2 so to install it :
 
 ```
 cd darknet
-emacs -nw Makefile
-    GPU=1
-    CUDNN=1
-    OPENCV=1
-    DEBUG=0
-
 make
 
 cd ../classifier
