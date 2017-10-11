@@ -2,7 +2,7 @@ EXEC = samaritain
 #INCLUDE+= -I/opt/mvIMPACT_Acquire/
 #FLAGS = -Wno-write-strings
 FLAGS+= -O2 -Wall -W -fPIC -D_REENTRANT -D_GNU_SOURCE  -DNDEBUG -fvisibility=hidden
-LIB= libs/darknet/libdarknet.a -lm
+LIB= libraries/darknet/libdarknet.a -lm
 LIB+= `pkg-config --libs opencv`
 LIB+=  -lpthread
 COMMON=-DOPENCV
@@ -30,4 +30,4 @@ clean:
 		rm $(EXEC)
 
 darknet:
-		$(MAKE) -C libs/darknet
+		$(MAKE) -C libraries/darknet
