@@ -1,5 +1,4 @@
 #MY RULES
-classifier/yolo.weights
 classifier/*.o
 classifier/data/yolo.weights
 
