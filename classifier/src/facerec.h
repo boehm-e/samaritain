@@ -49,13 +49,14 @@ std::vector<dlib::matrix<rgb_pixel>> jitter_image(
 
 class FaceRecognition {
 public:
-   char *shape_predictor;
-   char *net;
+   char *shape_predictorFile;
+   char *netFile;
+   anet_type net;
+   dlib::shape_predictor sp;
    frontal_face_detector detector;
    std::vector<dlib::matrix<rgb_pixel>> faces;
-   char *firstFacePath;
-   char *secondFacePath;
 
-   void setConfig(char *shape_predictor, char *net, char *firstFacePath, char *secondFacePath);
+   void setConfig(char *shape_predictor, char *net);
    int init();
+   int compare(char *face1, char *face2);
 };
