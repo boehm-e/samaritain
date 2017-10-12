@@ -11,6 +11,7 @@ postgresql
 CUDA
 nvcc
 opencv3
+dlib
 ```
 
 ##### Install
@@ -31,6 +32,9 @@ opencv3
   - password = samaritain
   - database = samaritain
 
+###### dlib
+- https://github.com/davisking/dlib
+
 ###### libpqxx :
   - install libpqxx-dev
 
@@ -40,9 +44,7 @@ opencv3
 ## Compile
 
 ```
-cd darknet
-make
-
-cd ../classifier
+cd classifier
+make darknet
 make run
 ```
