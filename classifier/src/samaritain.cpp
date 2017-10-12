@@ -6,7 +6,6 @@ void Samaritain::setConfig(char *datacfg, char *cfgfile, char *weightfile, float
   this->weightfile = weightfile;
   this->thresh = thresh;
   this->hier_thresh = hier_thresh;
-  cout << "dataCFG: " << this->datacfg << "\n";
 }
 
 int Samaritain::free_stuff(image im, image sized, box *boxes, float **probs, layer l) {
