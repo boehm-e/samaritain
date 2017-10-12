@@ -59,31 +59,24 @@ int FaceRecognition::init() {
   }
 }
 
-std::vector<matrix<rgb_pixel>> jitter_image(const matrix<rgb_pixel>& img) {
-  thread_local random_cropper cropper;
-  cropper.set_chip_dims(150,150);
-  cropper.set_randomly_flip(true);
-  cropper.set_max_object_size(0.99999);
-  cropper.set_background_crops_fraction(0);
-  cropper.set_min_object_size(0.97);
-  cropper.set_translate_amount(0.02);
-  cropper.set_max_rotation_degrees(3);
-
-  std::vector<mmod_rect> raw_boxes(1), ignored_crop_boxes;
-  raw_boxes[0] = shrink_rect(get_rect(img),3);
-  std::vector<matrix<rgb_pixel>> crops;
-
-  matrix<rgb_pixel> temp;
-  for (int i = 0; i < 100; ++i) {
-    cropper(img, raw_boxes, temp, ignored_crop_boxes);
-    crops.push_back(move(temp));
-  }
-  return crops;
-}
-
-// int main() {
-//   FaceRecognition faceRecognition;
-//   faceRecognition.setConfig("./data/dlib_models/shape_predictor_5_face_landmarks.dat", "./data/dlib_models/dlib_face_recognition_resnet_model_v1.dat", "data/faces/boehm_s.jpg", "data/faces/boehm_e.jpg");
-//   faceRecognition.init();
-//   return 0;
+// std::vector<matrix<rgb_pixel>> jitter_image(const matrix<rgb_pixel>& img) {
+//   thread_local random_cropper cropper;
+//   cropper.set_chip_dims(150,150);
+//   cropper.set_randomly_flip(true);
+//   cropper.set_max_object_size(0.99999);
+//   cropper.set_background_crops_fraction(0);
+//   cropper.set_min_object_size(0.97);
+//   cropper.set_translate_amount(0.02);
+//   cropper.set_max_rotation_degrees(3);
+//
+//   std::vector<mmod_rect> raw_boxes(1), ignored_crop_boxes;
+//   raw_boxes[0] = shrink_rect(get_rect(img),3);
+//   std::vector<matrix<rgb_pixel>> crops;
+//
+//   matrix<rgb_pixel> temp;
+//   for (int i = 0; i < 100; ++i) {
+//     cropper(img, raw_boxes, temp, ignored_crop_boxes);
+//     crops.push_back(move(temp));
+//   }
+//   return crops;
 // }

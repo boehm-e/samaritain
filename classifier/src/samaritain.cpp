@@ -89,7 +89,6 @@ void Samaritain::show_coordinates(image im, int num, float thresh, box *boxes, f
     int j;
     float nms=.3;
 
-
     // HANDLE WEBCAM
     VideoCapture cap(0);
 
