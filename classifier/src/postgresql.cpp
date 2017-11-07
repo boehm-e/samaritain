@@ -1,22 +1,12 @@
-#include <iostream>
-#include <pqxx/pqxx>
+#include "postgresql.h"
 
-using namespace std;
-using namespace pqxx;
-
-int main(int argc, char* argv[]) {
-   try {
-      connection C("dbname = samaritain user = samaritain password = samaritain \
-      hostaddr = 127.0.0.1 port = 5432");
-      if (C.is_open()) {
-         cout << "Opened database successfully: " << C.dbname() << endl;
-      } else {
-         cout << "Can't open database" << endl;
-         return 1;
-      }
-      C.disconnect ();
-   } catch (const std::exception &e) {
-      cerr << e.what() << std::endl;
-      return 1;
-   }
+void PostgreSQL::SetConnection(char *username, char *host, char *password, char *dbname) {
+   this->conn=new pqxx::connection("dbname = samaritain user = samaritain password = samaritain hostaddr = 127.0.0.1 port = 5432");
 }
+
+
+//
+// int main(int argc, char* argv[]) {
+//    PostgreSQL psql;
+//    psql.init("dbname = samaritain user = samaritain password = samaritain hostaddr = 127.0.0.1 port = 5432");
+// }

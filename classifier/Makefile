@@ -8,7 +8,7 @@ LIB+=  -lpthread
 COMMON=-DOPENCV
 # GPU
 COMMON+= -DGPU -I/usr/local/cuda/include/
-LIB+= -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lcurand
+LIB+= -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lcurand -lpqxx
 
 COMMON+= -DCUDNN
 LIB+= -lcudnn
@@ -17,8 +17,8 @@ LIB+= -shared-libgcc
 
 
 all:
-		g++ -c src/main.cpp src/samaritain.cpp  $(COMMON) $(FLAGS) $(INCLUDE)
-		g++ -o $(EXEC) main.o samaritain.o $(LIB) $(COMMON)
+		g++ -c src/main.cpp src/samaritain.cpp src/postgresql.cpp $(COMMON) $(FLAGS) $(INCLUDE)
+		g++ -o $(EXEC) main.o samaritain.o postgresql.o $(LIB) $(COMMON)
 
 run:
 		make
