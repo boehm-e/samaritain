@@ -1,6 +1,9 @@
 #MY RULES
 classifier/*.o
+classifier/data/faces
 classifier/data/yolo.weights
+classifier/data/dlib_models
+
 
 # Prerequisites
 *.d

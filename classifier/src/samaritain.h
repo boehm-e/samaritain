@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 
-// OUR RULES
+// -------------
 
 extern "C" image ipl_to_image(IplImage* src);
 extern "C" void ipl_into_image(IplImage* src, image im);
