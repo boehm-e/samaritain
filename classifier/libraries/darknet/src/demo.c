@@ -41,6 +41,8 @@ static int demo_index = 0;
 static int demo_done = 0;
 static float *avg;
 
+double demo_time;
+
 double get_wall_time()
 {
     struct timeval time;

@@ -1,11 +1,11 @@
-#include "./facerec.h"
+#include "./headers/facerec.h"
 
 void FaceRecognition::setConfig(char *shape_predictorFile, char *netFile) {
   this->shape_predictorFile = shape_predictorFile;
   this->netFile = netFile;
 }
 
-matrix<float,0,1> FaceRecognition::getFaceDescriptor(char *facee) {
+matrix<float,0,1> FaceRecognition::getFaceDescriptor_from_picture(char *facee) {
   matrix<rgb_pixel> firstimg;
   cv::Mat firstPerson = cv::imread(facee);
   dlib::assign_image(firstimg, dlib::cv_image<rgb_pixel>(firstPerson));
@@ -23,7 +23,7 @@ matrix<float,0,1> FaceRecognition::getFaceDescriptor(char *facee) {
 
   try {
     if (faces.size() != 1) {
-      throw std::logic_error( "More or less than ONE face" ); 
+      throw std::logic_error( "More or less than ONE face" );
     }
   }
   catch ( const std::exception & e ) {
@@ -34,6 +34,35 @@ matrix<float,0,1> FaceRecognition::getFaceDescriptor(char *facee) {
 
   matrix<float,0,1> face_descriptor = this->net(faces)[0];
   return face_descriptor;
+}
+
+void FaceRecognition::findThreats_from_cvmat(cv::Mat video_frame_cv, PostgreSQL *db) {
+
+  std::vector<matrix<float,0,1>> threats;
+  threats = db->getThreats();
+  for (size_t i = 0; i < 128; i++) {
+    cout << threats[0](0,i) << ",";
+  }
+
+  // matrix<rgb_pixel> video_frame;
+  // dlib::assign_image(video_frame, dlib::cv_image<rgb_pixel>(video_frame_cv));
+  //
+  // std::vector<matrix<rgb_pixel>> faces;
+  //
+  // for (auto face : this->detector(video_frame)) {
+  //   auto shape = this->sp(video_frame, face);
+  //   matrix<rgb_pixel> face_chip;
+  //   extract_image_chip(video_frame, get_face_chip_details(shape,150,0.25), face_chip);
+  //   faces.push_back(move(face_chip));
+  // }
+  //
+  //
+  // std::vector<matrix<float,0,1>> face_descriptors = this->net(faces);
+  // cout << "FOUND  " << faces.size() << " FACES" << endl;
+  //
+  // for (size_t i = 0; i < face_descriptors.size(); i++) {
+  //   float diff = length(face_descriptors[0]-face_descriptors[1]);
+  // }
 }
 
 int FaceRecognition::compare(char *face1, char *face2) {

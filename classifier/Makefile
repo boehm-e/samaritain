@@ -18,6 +18,7 @@ LIB+= -L/usr/local/cuda/lib64 -lcuda -lcudart -lcublas -lcurand
 COMMON+= -DCUDNN
 LIB+= -lcudnn
 LIB+= -lstdc++
+LIB+= -std=c++11
 LIB+= -shared-libgcc
 LIB+=  -lpthread
 

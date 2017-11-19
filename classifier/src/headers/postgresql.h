@@ -5,7 +5,17 @@
 #include <string>
 #include <iostream>
 #include <pqxx/pqxx>
-#include <dlib/matrix.h>
+
+#include <dlib/dnn.h>
+#include <dlib/gui_widgets.h>
+#include <dlib/clustering.h>
+#include <dlib/string.h>
+#include <dlib/image_io.h>
+#include <dlib/image_processing/frontal_face_detector.h>
+
+#include <dlib/opencv.h>
+
+// #include "./facerec.h"
 
 using namespace std;
 using namespace pqxx;
@@ -27,12 +37,12 @@ class PostgreSQL
     // int lastInsertID();
     // int lastInsert();
     int insert(string table, string sql);
+    std::vector<dlib::matrix<float,0,1>> getThreats();
 
     private:
     connection* C;
     string talbeInsert;
     bool insertSuccess;
-
 };
 
 #endif

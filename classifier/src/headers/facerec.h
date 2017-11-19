@@ -1,3 +1,7 @@
+#ifndef _FACEREC_H_
+#define _FACEREC_H_
+#include "./postgresql.h"
+
 #include <dlib/dnn.h>
 #include <dlib/gui_widgets.h>
 #include <dlib/clustering.h>
@@ -59,5 +63,8 @@ public:
    void setConfig(char *shape_predictor, char *net);
    int init();
    int compare(char *face1, char *face2);
-   dlib::matrix<float,0,1> getFaceDescriptor(char *face);
+   dlib::matrix<float,0,1> getFaceDescriptor_from_picture(char *face);
+   void findThreats_from_cvmat(Mat face, PostgreSQL *db);
 };
+
+#endif
