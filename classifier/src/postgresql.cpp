@@ -100,21 +100,32 @@ matrix<float,0,1> to_matrix(std::array<float, 128> descriptor) {
   return matrix_descriptor;
 }
 
+std::vector<string> PostgreSQL::getThreatsNames() {
+  stringstream sql;
+  pqxx::work txn(*this->C);
+  pqxx::result r = txn.exec("SELECT * FROM threats");
+
+  std::vector<string> threats_names;
+
+  for (auto row: r) {
+    threats_names.push_back(row["name"].c_str());
+  }
+  return threats_names;
+}
+
 std::vector<matrix<float,0,1>> PostgreSQL::getThreats() {
   stringstream sql;
   pqxx::work txn(*this->C);
   pqxx::result r = txn.exec("SELECT * FROM threats");
 
   // std::array<float, 128> threats;
-  int size = 50;
-  const double test2 = 5;
 
   std::vector<matrix<float,0,1>> threats;
 
   for (auto row: r) {
-    std::cout
-    << row["name"].c_str()
-    << std::endl;
+    // std::cout
+    // << row["name"].c_str()
+    // << std::endl;
 
     std::array<float, 128> threat;
     threat = parse(row["face_descriptor"].c_str());

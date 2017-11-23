@@ -38,6 +38,7 @@ class PostgreSQL
     // int lastInsert();
     int insert(string table, string sql);
     std::vector<dlib::matrix<float,0,1>> getThreats();
+    std::vector<string> getThreatsNames();
 
     private:
     connection* C;

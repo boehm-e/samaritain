@@ -59,9 +59,13 @@ public:
    dlib::shape_predictor sp;
    frontal_face_detector detector;
    std::vector<dlib::matrix<rgb_pixel>> faces;
+   float threshold = 0.45;
+
+   std::vector<string> threats_names;
+   std::vector<dlib::matrix<float,0,1>> threats;
 
    void setConfig(char *shape_predictor, char *net);
-   int init();
+   int init(PostgreSQL *db);
    int compare(char *face1, char *face2);
    dlib::matrix<float,0,1> getFaceDescriptor_from_picture(char *face);
    void findThreats_from_cvmat(Mat face, PostgreSQL *db);

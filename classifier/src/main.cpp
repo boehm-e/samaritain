@@ -6,22 +6,24 @@
 #include <boost/date_time.hpp>
 #include <boost/bind.hpp>
 
-void loop(FaceRecognition faceRecognition) {
-   while (true) {
-      faceRecognition.compare("./data/faces/boehm_e.jpg", "./data/faces/boehm_s.jpg");
-      boost::this_thread::sleep_for(boost::chrono::milliseconds(100));
-   }
-}
-
 void addPeoples(FaceRecognition faceRecognition, PostgreSQL *db) {
 
-   dlib::matrix<float,0,1> threat_face_descriptor;
-   threat_face_descriptor = faceRecognition.getFaceDescriptor_from_picture("./data/faces/boehm_s.jpg");
-   db->addThreat("boehm_s", threat_face_descriptor);
-   threat_face_descriptor = faceRecognition.getFaceDescriptor_from_picture("./data/faces/boehm_e.jpg");
-   db->addThreat("boehm_e", threat_face_descriptor);
-   threat_face_descriptor = faceRecognition.getFaceDescriptor_from_picture("./data/faces/fares_k.jpg");
-   db->addThreat("fares_k", threat_face_descriptor);
+
+   std::vector <string> threats;
+
+   threats.push_back("adam_a");
+
+   for (int i=0; i<threats.size(); i++) {
+      std::stringstream ss;
+      ss << "./data/faces/" << threats[i] << ".jpg";
+      std::string path = ss.str();
+
+      cout << path << endl;
+
+      dlib::matrix<float,0,1> threat_face_descriptor;
+      threat_face_descriptor = faceRecognition.getFaceDescriptor_from_picture(const_cast<char*> ( path.c_str() ));
+      db->addThreat(threats[i], threat_face_descriptor);
+   }
 }
 
 int main() {
@@ -31,7 +33,7 @@ int main() {
    // INIT FACE RECOGNITION
    FaceRecognition faceRecognition;
    faceRecognition.setConfig("./data/dlib_models/shape_predictor_5_face_landmarks.dat", "./data/dlib_models/dlib_face_recognition_resnet_model_v1.dat");
-   faceRecognition.init();
+   faceRecognition.init(db);
 
 
    // INIT YOLO
@@ -42,9 +44,9 @@ int main() {
    // tgroup.create_thread( boost::bind( &loop, faceRecognition ) ); // faceRecognition.init();
    // tgroup.create_thread( boost::bind( &Samaritain::run, &samaritain ) ); // samaritain.run();
 
+   addPeoples(faceRecognition, db);
    samaritain.run(faceRecognition, db);
 
-   addPeoples(faceRecognition, db);
 
    // START THE JOB
    // tgroup.join_all();

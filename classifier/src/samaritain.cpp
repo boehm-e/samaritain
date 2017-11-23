@@ -92,11 +92,13 @@ void Samaritain::run(FaceRecognition faceRecognition, PostgreSQL *db) {
 
   Mat frame;
   while(true) {
-    double demo_time = what_time_is_it_now();
 
     cap >> frame;
+    // cv::resize(frame, frame, cv::Size(400, 300));
+    // find threat in frame
+    faceRecognition.findThreats_from_cvmat(frame, db);
+    imshow("original", frame);
 
-    // faceRecognition.findThreats_from_cvmat(frame, db);
 
     IplImage ipl_img = frame;
     image im = ipl_to_image(&ipl_img);
@@ -127,7 +129,7 @@ void Samaritain::run(FaceRecognition faceRecognition, PostgreSQL *db) {
     }
 
     draw_detections(im, l.w*l.h*l.n, this->thresh, boxes, probs, masks, names, alphabet, l.classes);
-    show_image(im, "samaritain");
+    // show_image(im, "samaritain");
     if(waitKey(1) >= 0){}
     // show_coordinates(im, l.w*l.h*l.n, this->thresh, boxes, probs, names, alphabet, l.classes, frame);
     free_stuff(im, sized, boxes, probs, l);
